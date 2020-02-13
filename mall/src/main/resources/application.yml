@@ -4,7 +4,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/mall?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://120.79.185.188:3306/mall?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
 
 # 驼峰命名 与 下划线命名不匹配 配置
 mybatis:
