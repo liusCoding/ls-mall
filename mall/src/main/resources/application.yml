@@ -13,3 +13,5 @@ mybatis:
   mapper-locations: classpath:mappers/*.xml
 
 #mapper.xml地址
+server:
+  port: 8081
