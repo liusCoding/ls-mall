@@ -1,5 +1,6 @@
 package com.ls.pay.controller;
 
+import com.lly835.bestpay.enums.BestPayTypeEnum;
 import com.lly835.bestpay.model.PayResponse;
 import com.ls.pay.service.IPayService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,18 +28,28 @@ public class PayController {
     private IPayService payService;
 
     @GetMapping("/create")
-    public ModelAndView create( @RequestParam(required = false) String orderId, @RequestParam(required = false) BigDecimal amount){
+    public ModelAndView create(@RequestParam("orderId") String orderId, @RequestParam("amount") BigDecimal amount,
+                               @RequestParam("payType")BestPayTypeEnum payType
+                               ){
 
         Map<String,String> map = new HashMap<String,String>(16);
-        PayResponse payResponse = payService.create(orderId, amount);
-        map.put("codeUrl",payResponse.getCodeUrl());
+        PayResponse payResponse = payService.create(orderId, amount,payType);
 
-        return new ModelAndView("create",map);
+        //支付方式不同，渲染就不同，WXPAY_NATIVE使用codeUrl,AliPay_PC使用Body
+        if(payType.equals(BestPayTypeEnum.WXPAY_NATIVE)){
+            map.put("codeUrl",payResponse.getCodeUrl());
+            return new ModelAndView("createForWxNative",map);
+        }else if(payType.equals(BestPayTypeEnum.ALIPAY_PC)){
+            map.put("body",payResponse.getBody());
+            return new ModelAndView("createForAliPayPc",map);
+        }
+
+        throw new RuntimeException("暂不支持的支付类型");
     }
 
     @PostMapping("/notify")
-    public void asyncNotify(@RequestBody  String notifyData){
-        payService.asyncNotify(notifyData);
-        log.error("【异步通知结果】:{}",notifyData);
+    @ResponseBody
+    public String asyncNotify(@RequestBody  String notifyData){
+        return payService.asyncNotify(notifyData);
     }
 }

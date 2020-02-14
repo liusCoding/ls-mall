@@ -4,3 +4,8 @@ spring:
     username: root
     password: root
     url: jdbc:mysql://120.79.185.188:3306/mall?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+# 驼峰命名 与 下划线命名不匹配 配置
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mappers/*.xml
