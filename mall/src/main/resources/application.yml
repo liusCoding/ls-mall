@@ -5,11 +5,16 @@ spring:
     username: root
     password: root
     url: jdbc:mysql://120.79.185.188:3306/mall?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
-
+  redis:
+    host: 120.79.185.188
+    port: 6379
+    password: 961122
 # 驼峰命名 与 下划线命名不匹配 配置
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+    #控制台日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mappers/*.xml
 
 #mapper.xml地址
