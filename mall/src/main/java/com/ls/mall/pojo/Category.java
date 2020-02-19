@@ -1,42 +1,75 @@
 package com.ls.mall.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.Date;
 
-import java.time.LocalDateTime;
-
-/**
- * @className: Category
- * @description: 类别
- * @author: liusCoding
- * @create: 2019-11-21 17:51
- */
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Category {
-
     private Integer id;
 
-    /** 父类别id当id=0时说明是根节点,一级类别 */
     private Integer parentId;
 
-    /** 分类名称 */
     private String name;
 
-    /** 类别状态1-正常,2-已废弃 */
-    private Integer status;
+    private Boolean status;
 
-    /** 排序编号,同类展示顺序,数值相等则自然排序 */
     private Integer sortOrder;
 
-    /** 创建时间 */
-    private LocalDateTime createTime;
+    private Date createTime;
 
-    /** 更新时间 */
-    private LocalDateTime updateTime;
+    private Date updateTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 }
