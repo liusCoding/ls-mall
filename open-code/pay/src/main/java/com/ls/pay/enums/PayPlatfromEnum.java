@@ -9,7 +9,7 @@ import lombok.Getter;
 public enum PayPlatfromEnum {
 
     //1-支付宝，2-微信
-    APLIPAY(1),
+    ALIPAY(1),
     WX(2)
     ;
     private Integer code;

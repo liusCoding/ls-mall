@@ -1,5 +1,6 @@
 package com.ls.pay.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.lly835.bestpay.enums.BestPayPlatformEnum;
 import com.lly835.bestpay.enums.BestPayTypeEnum;
 import com.lly835.bestpay.enums.OrderStatusEnum;
@@ -11,11 +12,14 @@ import com.ls.pay.enums.PayPlatfromEnum;
 import com.ls.pay.pojo.PayInfo;
 import com.ls.pay.service.IPayService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+
+import static com.ls.pay.constants.QueueStats.QUEUE_PAY_NOTIFY;
 
 /**
  * @className: PayServiceImpl
@@ -33,6 +37,10 @@ public class PayServiceImpl implements IPayService {
 
     @Autowired
     private PayInfoMapper payInfoMapper;
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
     /**
      * 创建/发起支付
      *
@@ -97,9 +105,13 @@ public class PayServiceImpl implements IPayService {
         //3.修改订单支付状态
 
         payInfo.setPlatformStatus(OrderStatusEnum.SUCCESS.name());
+        payInfo.setPlatformNumber(payResponse.getOutTradeNo());
         payInfoMapper.updateByPrimaryKeySelective(payInfo);
-        //4.告诉微信不要在通知了
 
+        //TODO pay发送MQ消息，mall接受MQ消息
+        amqpTemplate.convertAndSend(QUEUE_PAY_NOTIFY, JSON.toJSONString(payInfo));
+
+        //4.告诉微信不要在通知了
         if(payResponse.getPayPlatformEnum().equals(BestPayPlatformEnum.WX)){
             return "<xml>\n" +
                     "\n" +
@@ -112,5 +124,19 @@ public class PayServiceImpl implements IPayService {
 
         throw new RuntimeException("异步通知中错误的支付平台");
 
+    }
+
+    /**
+     * 通过订单号查询支付记录
+     *
+     * @param orderId 订单号
+     * @date: 2020/2/14
+     * @return: com.ls.pay.pojo.PayInfo
+     **/
+    @Override
+    public PayInfo queryByOrderId(String orderId) {
+
+        PayInfo payInfo = payInfoMapper.selectByOrderNo(Long.parseLong(orderId));
+        return payInfo;
     }
 }
