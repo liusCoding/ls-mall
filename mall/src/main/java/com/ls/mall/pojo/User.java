@@ -1,17 +1,15 @@
 package com.ls.mall.pojo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class User {
     private Integer id;

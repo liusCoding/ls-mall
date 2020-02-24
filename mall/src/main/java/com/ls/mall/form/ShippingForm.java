@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @className: ShippingForm
  * @description: 地址表单对象
@@ -17,19 +19,28 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ShippingForm {
+
+    @NotBlank
     private String receiverName;
 
+    @NotBlank
     private String receiverPhone;
 
+    @NotBlank
     private String receiverMobile;
 
+    @NotBlank
     private String receiverProvince;
 
+    @NotBlank
     private String receiverCity;
 
+    @NotBlank
     private String receiverDistrict;
 
+    @NotBlank
     private String receiverAddress;
 
+    @NotBlank
     private String receiverZip;
 }

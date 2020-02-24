@@ -8,7 +8,6 @@ import com.ls.mall.service.ICartService;
 import com.ls.mall.vo.CartVo;
 import com.ls.mall.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +26,7 @@ public class CartServiceImplTest {
 
     private final static String CART_REDIS_KEY = "cart_%d";
 
-    private Integer uid = 1;
+    private Integer uid = 12;
     private Integer productId = 26;
 
     @Before
@@ -67,7 +66,7 @@ public class CartServiceImplTest {
         Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), updateResult.getStatus());
     }
 
-    @After
+
     public void delete() {
         log.info("删除购物车");
         ResponseVo<CartVo> deleteResult = cartService.delete(uid, productId);

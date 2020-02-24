@@ -22,7 +22,7 @@ public class ProductServiceImplTest {
     @Test
     public void list() {
 
-        ResponseVo<PageInfo> list = productService.list(100001, 1, 1);
+        ResponseVo<PageInfo> list = productService.list(100001, 1, 10);
 
         Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), list.getStatus());
     }
