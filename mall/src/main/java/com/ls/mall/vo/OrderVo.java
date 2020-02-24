@@ -1,4 +1,4 @@
-package com.ls.mall.pojo;
+package com.ls.mall.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,19 +7,23 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+
+/**
+ * @className: OrderVo
+ * @description: 订单VO
+ * @author: liusCoding
+ * @create: 2020-02-19 15:27
+ */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Order {
-    private Integer id;
+public class OrderVo {
 
     private Long orderNo;
 
-    private Integer userId;
-
-    private Integer shippingId;
 
     private BigDecimal payment;
 
@@ -39,6 +43,9 @@ public class Order {
 
     private LocalDateTime createTime;
 
-    private LocalDateTime updateTime;
+    private List<OrderItemVo> orderItemVos;
 
+    private Integer shippingId;
+
+    private ShippingVo shippingVo;
 }

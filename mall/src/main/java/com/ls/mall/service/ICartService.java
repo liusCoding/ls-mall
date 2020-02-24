@@ -2,8 +2,11 @@ package com.ls.mall.service;
 
 import com.ls.mall.form.CartAddForm;
 import com.ls.mall.form.CartUpdateForm;
+import com.ls.mall.pojo.Cart;
 import com.ls.mall.vo.CartVo;
 import com.ls.mall.vo.ResponseVo;
+
+import java.util.List;
 
 public interface ICartService {
 
@@ -73,5 +76,14 @@ public interface ICartService {
      * @return: javax.xml.ws.Response<java.lang.Integer>
      **/
     ResponseVo<Integer> sum(Integer uid);
+
+    /**
+     * 获取该用户的购物车列表
+     *
+     * @param uid 用户id
+     * @date: 2020/2/19
+     * @return: java.util.List<com.ls.mall.pojo.Cart>
+     **/
+    List<Cart> listForCart(Integer uid);
 
 }

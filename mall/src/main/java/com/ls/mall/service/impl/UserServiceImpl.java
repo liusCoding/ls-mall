@@ -47,7 +47,7 @@ public class UserServiceImpl implements IUserService {
         // email不能重复
         int emailCount = userMapper.countByEmail(user.getEmail());
         if (emailCount > 0) {
-            return ResponseVo.error(EMAIL_EXSIT);
+            return ResponseVo.error(EMAIL_EXIST);
         }
 
         //MD5加密（Spring自带）
