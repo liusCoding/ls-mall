@@ -49,4 +49,13 @@ public interface IOrderService {
      **/
     ResponseVo cancel(Integer uid, Long orderNo);
 
+    /**
+     * 修改订单状态
+     *
+     * @param orderNo 订单号
+     * @date: 2020/2/24
+     * @return: void
+     **/
+    void paid(Long orderNo);
+
 }

@@ -9,6 +9,12 @@ spring:
     host: 120.79.185.188
     port: 6379
     password: 961122
+
+  rabbitmq:
+    addresses: 120.79.185.188
+    port: 5672
+    username: admin
+    password: 123456
 # 驼峰命名 与 下划线命名不匹配 配置
 mybatis:
   configuration:

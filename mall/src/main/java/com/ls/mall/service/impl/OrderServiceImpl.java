@@ -27,8 +27,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.ls.mall.enums.OrderStatusEnum.CANCELED;
-import static com.ls.mall.enums.OrderStatusEnum.NO_PAY;
+import static com.ls.mall.enums.OrderStatusEnum.*;
 import static com.ls.mall.enums.PaymentTypeEnum.PAY_ONLINE;
 import static com.ls.mall.enums.ResponseEnum.ORDER_NO_EXIST;
 import static com.ls.mall.enums.ResponseEnum.ORDER_STATUS_ERROR;
@@ -229,6 +228,37 @@ public class OrderServiceImpl implements IOrderService {
         }
 
         return ResponseVo.success();
+    }
+
+    /**
+     * 修改订单状态
+     *
+     * @param orderNo 订单号
+     * @date: 2020/2/24
+     * @return: void
+     **/
+    @Override
+    public void paid(Long orderNo) {
+        //校验该订单属不属于该用户
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        if (Objects.isNull(order)) {
+            throw new RuntimeException(ORDER_NO_EXIST.getMsg() + "订单号" + orderNo);
+        }
+
+        //只有【未付款】订单可以变成已付款，看自己公司业务
+        if (!NO_PAY.getCode().equals(order.getStatus())) {
+            throw new RuntimeException(ORDER_STATUS_ERROR.getMsg() + "订单号" + orderNo);
+        }
+
+        //修改订单状态
+        order.setStatus(PAID.getCode());
+        order.setCloseTime(LocalDateTime.now());
+
+        int row = orderMapper.updateByPrimaryKeySelective(order);
+        if (row <= 0) {
+            throw new RuntimeException("将订单更新为已支付状态失败" + "订单号" + orderNo);
+        }
+
     }
 
 

@@ -75,6 +75,10 @@
             <version>1.2.62</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
 
     </dependencies>
 
@@ -94,6 +98,7 @@
                     <overwrite>true</overwrite>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 

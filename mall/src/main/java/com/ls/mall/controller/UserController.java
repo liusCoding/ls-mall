@@ -42,8 +42,6 @@ public class UserController {
     @PostMapping("/user/login")
     public ResponseVo<User> login(@Valid @RequestBody UserLoginForm user,
                                   HttpSession httpSession) {
-
-
         ResponseVo<User> userResponseVo = userService.login(user.getUsername(), user.getPassword());
 
         //设置Session
@@ -54,7 +52,6 @@ public class UserController {
     @GetMapping("/user")
     public ResponseVo<User> userInfo(HttpSession httpSession) {
         User user = (User) httpSession.getAttribute(MallConst.CURRENT_USER);
-
         return ResponseVo.success(user);
     }
 
