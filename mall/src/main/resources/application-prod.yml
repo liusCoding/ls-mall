@@ -6,7 +6,7 @@ spring:
     password: root
     url: jdbc:mysql://127.0.0.1:3306/mall?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
   redis:
-    host: 120.79.185.188
+    host: 127.0.0.1
     port: 6379
     password: 961122
 

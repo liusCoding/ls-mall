@@ -1,0 +1,6 @@
+#!/bin/sh
+nohup java -jar -Dspring.profiles.active=test mall.jar >> console.log &
+
+
+
+mv dist/* .
